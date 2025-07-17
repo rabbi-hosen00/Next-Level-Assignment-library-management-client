@@ -1,6 +1,8 @@
 import AddBook from "@/book/addBook";
 import AllBooks from "@/book/allBooks";
 import editBook from "@/book/editBook";
+import Borrow from "@/borrow/borrow";
+import BorrowSummary from "@/borrow/borrowSummary";
 import home from "@/home/home";
 import Layout from "@/main_layout/Layout";
 import {
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
             {
                 path: "/edit-book/:id",
                 Component: editBook
+            },
+            {
+                path: "/borrow/:book",
+                Component: Borrow
+            },
+            {
+                path: "/borrow-summary",
+                Component: BorrowSummary
             }
         ]
     }
