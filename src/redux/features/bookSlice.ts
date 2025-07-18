@@ -1,5 +1,7 @@
-import { createSlice, } from '@reduxjs/toolkit'
-import type { RootState } from '../store'
+
+
+import { createSlice, type PayloadAction, } from '@reduxjs/toolkit';
+import type { RootState } from '../store';
 
 export interface Book {
   _id?: string;
@@ -13,26 +15,39 @@ export interface Book {
 }
 
 export interface BookState {
-   selectedBook: Book | null;
+  selectedBook: Book | null;
   searchTerm: string;
 }
 
 const initialState: BookState = {
-  selectedBook:  null,
-  searchTerm: ""
-}
+  selectedBook: null,
+  searchTerm: "",
+};
 
 export const bookSlice = createSlice({
   name: 'book',
   initialState,
   reducers: {
-  
-  }
-})
+    setSelectedBook(state, action:PayloadAction<Book>){
+      state.selectedBook = action.payload
+    },
+    clearSelectedBook(state){
+      state.selectedBook = null;
+    },
+    setSearchTerm(state, action: PayloadAction<string>){
+      state.searchTerm = action.payload
+    }
 
-export const {  } = bookSlice.actions
+  },
+});
 
-// Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.counter.value
+
+export const { setSelectedBook, clearSelectedBook, setSearchTerm } = bookSlice.actions;
+
+
+export const selectSelectedBook = (state: RootState) => state.book.selectedBook;
+export const selectSearchTerm = (state: RootState) => state.book.searchTerm;
+
 
 export default bookSlice.reducer;
+

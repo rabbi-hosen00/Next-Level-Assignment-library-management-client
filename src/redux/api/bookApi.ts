@@ -16,7 +16,7 @@
 // export const bookApi = createApi({
 //     reducerPath: 'bookApi',
 //     baseQuery: fetchBaseQuery({
-//         baseUrl: 'https://libary-management-backend-six.vercel.app/api'
+//         baseUrl: 'http://localhost:5000/api'
 //     }),
 //     tagTypes: ['books',"borrow"],
 //     endpoints: (builder) => ({
@@ -82,7 +82,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { Book } from "../features/bookSlice";
 
 export interface IBorrow {
-  _id: string;
+  _id?: string;
   book: {
     _id: string;
     title: string;
@@ -94,13 +94,21 @@ export interface IBorrow {
   updatedAt: string;
 }
 
+// export interface IBorrowSummary {
+//     book: string;
+//     title: string;
+//     isbn: string;
+//     totalBorrowed: number;
+// }
+
+
 export interface IBorrowSummary {
-    book: string;
+  totalQuantity: number; // ✅ API অনুযায়ী
+  book: {
     title: string;
     isbn: string;
-    totalBorrowed: number;
+  };
 }
-
 
 export type BookFormData = Omit<Book, "_id">;
 
@@ -113,7 +121,7 @@ interface ApiResponse<T> {
 export const bookApi = createApi({
   reducerPath: "bookApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://libary-management-backend-six.vercel.app/api",
+    baseUrl: "http://localhost:5000/api",
   }),
   tagTypes: ["books", "borrow"],
   endpoints: (builder) => ({
@@ -161,7 +169,7 @@ export const bookApi = createApi({
     // ✅ Borrow Book (moved from borrowApi)
     borrowBook: builder.mutation<
       ApiResponse<IBorrow>,
-      { bookId: string; quantity: number; dueDate: string }
+      { book: string; quantity: number; dueDate: string }
     >({
       query: (body) => ({
         url: "/borrow",

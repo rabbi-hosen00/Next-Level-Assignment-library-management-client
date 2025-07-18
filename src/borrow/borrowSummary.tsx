@@ -61,8 +61,8 @@ if (isLoading) {
           </thead>
 
           <tbody className="divide-y divide-gray-100 bg-white">
-            {borrowList.map((entry) => (
-              <tr key={entry.book.isbn ?? entry.book.title} className="hover:bg-indigo-50 transition duration-200">
+            {borrowList.map((entry,idx) => (
+              <tr key={ idx} className="hover:bg-indigo-50 transition duration-200">
                 <td className="px-4 sm:px-6 py-4 text-gray-800 font-medium">{entry.book.title}</td>
                 <td className="px-4 sm:px-6 py-4 text-gray-600">{entry.book.isbn}</td>
                 <td className="px-4 sm:px-6 py-4 text-center text-indigo-700 font-semibold">{entry.totalQuantity}</td>

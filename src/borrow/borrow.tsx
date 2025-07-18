@@ -7,7 +7,7 @@ import { toast } from "sonner";
 
 
 const Borrow = () => {
-  const { book } = useParams<{ book: string }>(); // book = bookId
+  const { book } = useParams<{ book: string | undefined }>(); // book = bookId
   const navigate = useNavigate();
 
   const { data, isLoading, isError } = useGetBookByIdQuery(book!);
@@ -26,6 +26,11 @@ const Borrow = () => {
         ))}
       </div>
     );
+  }
+
+  if (!book) {
+    toast.error("Invalid Book ID");
+    return;
   }
 
   if (isError || !singleBook) {
@@ -61,7 +66,9 @@ const Borrow = () => {
       toast.success("✅ Book borrowed successfully!");
       navigate("/borrow-summary"); // ✅ পরে এই পেজ তৈরি করো
     } catch (error) {
-      toast.error("Failed to borrow the book.");
+      const errMsg =
+        error instanceof Error ? error.message : "Failed to borrow the book.";
+      toast.error(errMsg);
     }
   };
 
