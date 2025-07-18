@@ -1,13 +1,13 @@
  Minimal Library Management System 📚
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-blue)](https://your-live-demo-url.com)
+[![Live Demo](https://libary-management-clinet.vercel.app/)
 
 ---
 
 ## Live Demo
 
 Try the fully functional live application here:  
-🔗 [https://your-live-demo-url.com](https://your-live-demo-url.com)
+🔗 [https://your-live-demo-url.com](https://libary-management-clinet.vercel.app/)
 
 ---
 
