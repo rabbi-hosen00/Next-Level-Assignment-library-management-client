@@ -1,8 +1,4 @@
- Minimal Library Management System 📚
 
-[![Live Demo](https://libary-management-clinet.vercel.app/)
-
----
 
 ## Live Demo
 
