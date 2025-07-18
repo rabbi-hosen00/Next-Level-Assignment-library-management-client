@@ -21,6 +21,7 @@ interface Book {
 const BookList: React.FC = () => {
   const { data, isLoading } = useGetAllBooksQuery(null);
   const [deleteBook] = useDeleteBookMutation();
+ 
 
   const handleDelete = (id: string) => {
     toast("Are you sure you want to delete this book?", {
@@ -42,18 +43,29 @@ const BookList: React.FC = () => {
     });
   };
 
-  if (isLoading) {
-    return (
-      <div className="space-y-4 mt-6">
-        {[...Array(3)].map((_, i) => (
-          <Skeleton key={i} className="w-full h-14 rounded" />
+if (isLoading) {
+  return (
+    <div className="max-w-6xl mx-auto mt-10 space-y-6">
+      <div className="space-y-4">
+        {[...Array(5)].map((_, i) => (
+          <div
+            key={i}
+            className="flex items-center justify-between p-4 bg-white shadow rounded-lg"
+          >
+            <div className="space-y-2">
+              <Skeleton className="h-5 w-[200px] rounded" />
+              <Skeleton className="h-4 w-[150px] rounded" />
+            </div>
+            <Skeleton className="h-10 w-[100px] rounded" />
+          </div>
         ))}
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   return (
-    <div className="max-w-6xl mx-auto mt-10 p-4">
+    <div className="max-w-7xl mx-auto mt-10 p-4">
       <h2 className="text-4xl font-bold text-center mb-8 text-indigo-700">
         All Books
       </h2>
@@ -74,7 +86,7 @@ const BookList: React.FC = () => {
           </thead>
           <tbody>
             {data?.data?.map((book: Book) => {
-              const isAvailable = book.copies > 0 && book.available;
+              const isAvailable = book.copies > 0 
               return (
                 <tr
                   key={book._id}
@@ -204,4 +216,5 @@ const BookList: React.FC = () => {
 };
 
 export default BookList;
+
 

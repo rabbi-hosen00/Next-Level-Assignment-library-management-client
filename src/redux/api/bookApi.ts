@@ -16,7 +16,7 @@
 // export const bookApi = createApi({
 //     reducerPath: 'bookApi',
 //     baseQuery: fetchBaseQuery({
-//         baseUrl: 'http://localhost:5000/api'
+//         baseUrl: 'https://libary-management-backend-six.vercel.app/api'
 //     }),
 //     tagTypes: ['books',"borrow"],
 //     endpoints: (builder) => ({
@@ -94,6 +94,14 @@ export interface IBorrow {
   updatedAt: string;
 }
 
+export interface IBorrowSummary {
+    book: string;
+    title: string;
+    isbn: string;
+    totalBorrowed: number;
+}
+
+
 export type BookFormData = Omit<Book, "_id">;
 
 interface ApiResponse<T> {
@@ -105,7 +113,7 @@ interface ApiResponse<T> {
 export const bookApi = createApi({
   reducerPath: "bookApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api",
+    baseUrl: "https://libary-management-backend-six.vercel.app/api",
   }),
   tagTypes: ["books", "borrow"],
   endpoints: (builder) => ({
@@ -122,7 +130,7 @@ export const bookApi = createApi({
     // ✅ Get All Books
     getAllBooks: builder.query<ApiResponse<Book[]>, void>({
       query: () => "/books",
-      providesTags: ["books"],
+      providesTags: ["books","borrow"],
     }),
 
     // ✅ Get Single Book
@@ -160,8 +168,14 @@ export const bookApi = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["books"], // ✅ Books data refresh হবে
+      invalidatesTags: ["books","borrow"], // ✅ Books data refresh হবে
     }),
+
+     getBorrowSummary: builder.query<ApiResponse<IBorrowSummary[]>, void>({
+      query: () => "/borrow",
+      providesTags: ["borrow","books"],
+    }),
+
   }),
 });
 
@@ -171,5 +185,6 @@ export const {
   useGetBookByIdQuery,
   useUpdateBookMutation,
   useDeleteBookMutation,
-  useBorrowBookMutation, // ✅ এখন এটা এখান থেকে আসবে
+  useBorrowBookMutation,
+  useGetBorrowSummaryQuery
 } = bookApi;
